@@ -1,4 +1,4 @@
-[ms3seg_readme.md](https://github.com/user-attachments/files/22866085/ms3seg_readme.md)
+[ms3seg_readme.md](https://github.com/user-attachments/files/22866201/ms3seg_readme.md)
 # MS3SEG: A Multiple Sclerosis MRI Dataset with Tri-Mask Annotations for Lesion Segmentation
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
@@ -62,7 +62,7 @@ MS3SEG/
 ├── figures/               # Figures from the paper
 ├── tables/                # Tables from the paper
 ├── splits/                # Cross-validation splits
-│   └── 5fold_splits.csv
+│   └── 5fold_splits.json
 ├── requirements.txt       # Python dependencies
 ├── LICENSE               # MIT License
 └── README.md             # This file
