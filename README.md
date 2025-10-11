@@ -1,4 +1,4 @@
-[ms3seg_readme.md](https://github.com/user-attachments/files/22866212/ms3seg_readme.md)
+[ms3seg_readme.md](https://github.com/user-attachments/files/22866280/ms3seg_readme.md)
 # MS3SEG: A Multiple Sclerosis MRI Dataset with Tri-Mask Annotations for Lesion Segmentation
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
@@ -148,9 +148,9 @@ See `tables/` directory for complete results.
 If you use this dataset or code, please cite our paper:
 
 ```bibtex
-@article{ms3seg2025,
+@article{bawil2025,
   title={MS3SEG: A Multiple Sclerosis MRI Dataset with Tri-Mask Annotations for Lesion Segmentation},
-  author={[Author Names]},
+  author={Bawil, Mahdi Bashiri, Shamsi, Mousa, Ghalehasadi, Aydin, Jafargholkhanloo, Ali Fahmi, and Bavil, Abolhassan Shakeri},
   journal={Scientific Data},
   year={2025},
   doi={[DOI_TO_BE_ADDED]}
@@ -170,7 +170,7 @@ We welcome contributions! Please feel free to submit issues or pull requests.
 
 For questions or issues:
 - **GitHub Issues:** [Submit an issue](https://github.com/Mahdi-Bashiri/MS3SEG/issues)
-- **Email:** [your.email@institution.edu]
+- **Email:** mehdi.bashiri.b@gmail.com; m_bashiri99@sut.ac.ir
 
 ## Acknowledgments
 
