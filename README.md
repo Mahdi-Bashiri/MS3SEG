@@ -1,4 +1,4 @@
-[ms3seg_readme.md](https://github.com/user-attachments/files/22866208/ms3seg_readme.md)
+[ms3seg_readme.md](https://github.com/user-attachments/files/22866212/ms3seg_readme.md)
 # MS3SEG: A Multiple Sclerosis MRI Dataset with Tri-Mask Annotations for Lesion Segmentation
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
@@ -54,7 +54,7 @@ MS3SEG/
 ├── training/              # Training and evaluation scripts
 │   ├── train.py
 │   ├── evaluate.py
-│   └── config.yaml
+│   └── config.json
 ├── utils/                 # Utility functions
 │   ├── data_loader.py
 │   ├── metrics.py
