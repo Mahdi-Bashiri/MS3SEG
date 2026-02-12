@@ -58,7 +58,7 @@ Not all white matter hyperintensities (WMH) visible on FLAIR imaging represent p
 ### Dataset Characteristics
 
 - ✅ **100 MS patients** (74 female, 26 male; age range: 18-55 years)
-- ✅ **Iranian cohort** from Tabriz Medical Center (2018-2022)
+- ✅ **Iranian cohort** from Tabriz Medical Center (2020-2021)
 - ✅ **Toshiba Vantage 1.5T scanner** (addressing vendor diversity gap)
 - ✅ **Multi-sequence MRI**: T1-weighted, T2-weighted, T2-FLAIR (axial + sagittal)
 - ✅ **~2000 annotated slices** with expert consensus review
@@ -67,8 +67,8 @@ Not all white matter hyperintensities (WMH) visible on FLAIR imaging represent p
 
 ### Data Formats
 
-- Raw DICOM files (~4GB)
-- Preprocessed NIfTI volumes (~2GB) - co-registered, standardized (256×256), brain-extracted
+- Raw DICOM files (~2.5GB)
+- NIfTI volumes (~2GB) - co-registered, standardized (256×256), brain-extracted
 - Ground truth tri-mask annotations
 - RGB-coded visualization overlays
 - Patient metadata (anonymized)
@@ -98,32 +98,73 @@ The complete MS3SEG dataset is publicly available at **Figshare** under CC-BY-4.
 
 ```
 MS3SEG_Dataset/
-├── raw_dicom/              # Original DICOM files (4GB)
-│   ├── patient_001/
-│   │   ├── T1_weighted/
-│   │   ├── T2_weighted/
-│   │   ├── FLAIR_axial/
-│   │   └── FLAIR_sagittal/
+├── MS_100_patient_full/              # Original DICOM files (2.5GB)
+│   ├── 001/
+│   │   ├── FLAIR/
+│   │   ├── FLAIR_SG/
+│   │   ├── T1WI/
+│   │   └── T2WI/
 │   └── ...
 │
-├── preprocessed_nifti/     # Preprocessed NIfTI volumes (2GB)
-│   ├── patient_001/
-│   │   ├── 001_T1_preprocessed.nii.gz
-│   │   ├── 001_T2_preprocessed.nii.gz
-│   │   └── 001_FLAIR_preprocessed.nii.gz
+├── MS_100_patient_nifti/     # Preprocessed NIfTI volumes (2GB)
+│   ├── 001/
+│   │   ├── 001_FLAIR.json
+│   │   ├── 001_FLAIR.nii.gz
+│   │   ├── 001_FLAIR_SG.json
+│   │   ├── 001_FLAIR_SG.nii.gz
+│   │   ├── 001_T1WI.json
+│   │   ├── 001_T1WI.nii.gz
+│   │   ├── 001_T2WI.json
+│   │   └── 001_T2WI.nii.gz
 │   └── ...
 │
-├── masks/                  # Tri-mask annotations (12-15KB per patient)
-│   ├── patient_001/
-│   │   └── 001_mask.nii.gz  # Classes: 0=bg, 1=ventricles, 2=normal WMH, 3=abnormal WMH
+├── MMS_100_patient_registered/     # Preprocessed NIfTI volumes (600MB)
+│   ├── 001/
+│   │   ├── 001_brain_mask.nii.gz
+│   │   ├── 001_FLAIR.nii.gz
+│   │   ├── 001_FLAIR_brain.nii.gz
+│   │   ├── 001_T1WI_reg.nii.gz
+│   │   └── 001_T2WI_reg.nii.gz
 │   └── ...
 │
-├── visualizations/         # RGB overlay PNGs (40-60KB per patient)
-│   └── patient_001_overlay.png
+├── MS_100_patient_preprocessed/     # Preprocessed NIfTI volumes (700MB)
+│   ├── 001/
+│   │   ├── 001_FLAIR.nii.gz
+│   │   ├── 001_T1WI_reg.nii.gz
+│   │   └── 001_T2WI_reg.nii.gz
+│   └── ...
+│
+├── MS_100_patient_masks/                  # Tri-mask annotations (4MB)
+│   ├── abWMH_Masks/
+│   │   ├── 001
+│   │   │   └── 001_abWMH_Mask.nii.gz
+│   │   └── ...
+│   ├── nWMH_Masks/
+│   │   ├── 001
+│   │   │   └── 001_nWMH_Mask.nii.gz
+│   │   └── ...
+│   └── Vent_Masks/
+│       ├── 001
+│       │   └── 001_Vent_Mask.nii.gz
+│       └── ...
+│
+├── MS_100_patient_gifs/         # RGB overlay PNGs (40-60KB per patient)
+│   ├── 001/
+│   │   ├── 001_animated.gif
+│   │   ├── slice_00.png
+│   │   ├── slice_01.png
+│   │   ├── ...
+│   │   └── slice_19.png
+│   └── ...
 │
 └── metadata/
-    ├── patient_demographics.json
-    ├── acquisition_parameters.csv
+    ├── patient_demographics.csv
+    ├── imaging_parameters.csv
+    ├── detailed_patient_data.csv
+    ├── slice_parameters_summary.csv
+    ├── file_types_distribution.csv
+    ├── file_details.csv
+    ├── data_directory_summary.csv
     └── README.txt
 ```
 
@@ -150,12 +191,18 @@ Pre-trained weights for all baseline models are available on Hugging Face:
 
 | Model | Scenario | Dice Score | Download | Size |
 |-------|----------|------------|----------|------|
-| U-Net | Multi-class (4-class) | 0.7163 | [u-net-multiclass](https://huggingface.co/YOUR_USERNAME/MS3SEG-models/blob/main/u-net-multiclass.h5) | ~31MB |
-| U-Net | Binary Lesion | 0.7469 | [u-net-binary-lesion](https://huggingface.co/YOUR_USERNAME/MS3SEG-models/blob/main/u-net-binary-lesion.h5) | ~31MB |
-| U-Net | Binary Ventricle | 0.8982 | [u-net-binary-ventricle](https://huggingface.co/YOUR_USERNAME/MS3SEG-models/blob/main/u-net-binary-ventricle.h5) | ~31MB |
-| U-Net++ | Multi-class (4-class) | 0.7094 | [unet++-multiclass](https://huggingface.co/YOUR_USERNAME/MS3SEG-models/blob/main/unetpp-multiclass.h5) | ~37MB |
-| UNETR | Multi-class (4-class) | 0.6136 | [unetr-multiclass](https://huggingface.co/YOUR_USERNAME/MS3SEG-models/blob/main/unetr-multiclass.h5) | ~90MB |
-| Swin UNETR | Multi-class (4-class) | 0.6563 | [swin-unetr-multiclass](https://huggingface.co/YOUR_USERNAME/MS3SEG-models/blob/main/swin-unetr-multiclass.h5) | ~120MB |
+| U-Net | Multi-class (4-class) | 0.7163 | [u-net-multiclass](https://huggingface.co/Bawil/MS3SEG/blob/main/kfold_brain_segmentation_20250924_232752_unified_focal_loss/models/multi_class/u_net_fold_4_best.h5) | ~389MB |
+| U-Net | Binary Lesion | 0.7469 | [u-net-binary-lesion](https://huggingface.co/Bawil/MS3SEG/blob/main/kfold_brain_segmentation_20250924_232752_unified_focal_loss/models/binary_abnormal_wmh/u_net_fold_4_best.h5) | ~31MB |
+| U-Net | Binary Ventricle | 0.8982 | [u-net-binary-ventricle](https://huggingface.co/Bawil/MS3SEG/blob/main/kfold_brain_segmentation_20250924_232752_unified_focal_loss/models/binary_ventricles/u_net_fold_4_best.h5) | ~31MB |
+| U-Net++ | Multi-class (4-class) | 0.7094 | [unet++-multiclass](https://huggingface.co/Bawil/MS3SEG/blob/main/kfold_brain_segmentation_20250924_232752_unified_focal_loss/models/multi_class/unet%2B%2B_fold_4_best.h5) | ~109MB |
+| U-Net++ | Binary Lesion | 0.6383 | [unet++-binary-lesion](https://huggingface.co/Bawil/MS3SEG/blob/main/kfold_brain_segmentation_20250924_232752_unified_focal_loss/models/binary_abnormal_wmh/unet%2B%2B_fold_4_best.h5) | ~109MB |
+| U-Net++ | Binary Ventricle | 0.8862 | [unet++-binary-ventricle](https://huggingface.co/Bawil/MS3SEG/blob/main/kfold_brain_segmentation_20250924_232752_unified_focal_loss/models/binary_ventricles/unet%2B%2B_fold_4_best.h5) | ~109MB |
+| UNETR | Multi-class (4-class) | 0.6136 | [unetr-multiclass](https://huggingface.co/Bawil/MS3SEG/blob/main/kfold_brain_segmentation_20250924_232752_unified_focal_loss/models/multi_class/unetr_fold_4_best.h5) | ~1.3GB |
+| UNETR | Binary Lesion | 0.6428 | [unetr-binary-lesion](https://huggingface.co/Bawil/MS3SEG/blob/main/kfold_brain_segmentation_20250924_232752_unified_focal_loss/models/binary_abnormal_wmh/unetr_fold_4_best.h5) | ~1.3GB |
+| UNETR | Binary Ventricle | 0.8457 | [unetr-binary-ventricle](https://huggingface.co/Bawil/MS3SEG/blob/main/kfold_brain_segmentation_20250924_232752_unified_focal_loss/models/binary_ventricles/unetr_fold_4_best.h5) | ~1.3GB |
+| Swin UNETR | Multi-class (4-class) | 0.6563 | [swin-unetr-multiclass](https://huggingface.co/Bawil/MS3SEG/blob/main/kfold_brain_segmentation_20250924_232752_unified_focal_loss/models/multi_class/swinunetr_fold_4_best.h5) | ~412MB |
+| Swin UNETR | Binary Lesion | 0.6088 | [swin-unetr-binary-lesion](https://huggingface.co/Bawil/MS3SEG/blob/main/kfold_brain_segmentation_20250924_232752_unified_focal_loss/models/binary_abnormal_wmh/swinunetr_fold_4_best.h5) | ~412MB |
+| Swin UNETR | Binary Ventricle | 0.8610 | [swin-binary-ventricle](https://huggingface.co/Bawil/MS3SEG/blob/main/kfold_brain_segmentation_20250924_232752_unified_focal_loss/models/binary_ventricles/swinunetr_fold_4_best.h5) | ~412MB |
 
 ### Quick Model Usage
 
@@ -165,8 +212,8 @@ from huggingface_hub import hf_hub_download
 
 # Download pre-trained model
 model_path = hf_hub_download(
-    repo_id="YOUR_USERNAME/MS3SEG-models",
-    filename="u-net-multiclass.h5"
+    repo_id="Bawil/MS3SEG/tree/main/kfold_brain_segmentation_20250924_232752_unified_focal_loss/models",
+    filename="binary_abnormal_wmh/u_net_fold_4_best.h5"
 )
 
 # Load model
@@ -182,7 +229,7 @@ predictions = model.predict(your_data)
 
 ### System Requirements
 
-- Python 3.8 or higher
+- Python 3.9 or higher
 - CUDA-capable GPU (recommended, 12GB+ VRAM for transformer models)
 - 16GB+ RAM
 - ~10GB disk space for repository + data
@@ -350,8 +397,7 @@ MS3SEG/
 │   └── visualization.py         # MS3SEGVisualizer class
 │
 ├── splits/                # Cross-validation splits
-│   ├── 5fold_splits.json        # 5-fold CV patient assignments
-│   └── test_set.json            # Held-out test patients
+│   └── patient_assignments.json    # 5-fold CV patient assignments and held-out test patients
 │
 ├── figures/               # Generated figures (paper + supplementary)
 ├── tables/                # Results tables (CSV format)
@@ -377,7 +423,7 @@ All training parameters are controlled via `training/config.json`:
     "target_size": [256, 256]
   },
   "training": {
-    "epochs": 100,
+    "epochs": 30,
     "batch_size": 4,
     "learning_rate": 0.0001,
     "loss_function": "unified_focal_loss"
@@ -427,7 +473,7 @@ trainer = MS3SEGTrainer(config_path='training/config.json')
 
 # Customize for specific research question
 trainer.config['training']['loss_function'] = 'dice'
-trainer.config['training']['batch_size'] = 8
+trainer.config['training']['batch_size'] = 4
 
 # Run experiment
 results = trainer.run_kfold_experiment(
@@ -548,19 +594,19 @@ Results reported as mean ± standard deviation across 5 folds:
 
 | Model | Dice ↑ | IoU ↑ | HD95 (mm) ↓ |
 |-------|:------:|:-----:|:-----------:|
-| **U-Net** | **0.7469 ± 0.0060** | **0.5965** | **32.51** |
-| U-Net++ | 0.6383 ± 0.0328 | 0.5073 | 30.99 |
-| UNETR | 0.6428 ± 0.0137 | 0.4738 | 42.18 |
-| Swin UNETR | 0.6088 ± 0.0392 | 0.4374 | 37.76 |
+| **U-Net** | **0.7469 ± 0.0060** | **0.5961** | **32.51** |
+| U-Net++ | 0.6383 ± 0.0328 | 0.4695 | 30.99 |
+| UNETR | 0.6428 ± 0.0137 | 0.4737 | 42.18 |
+| Swin UNETR | 0.6088 ± 0.0392 | 0.4385 | 37.76 |
 
 #### Ventricle Segmentation
 
 | Model | Dice ↑ | IoU ↑ | HD95 (mm) ↓ |
 |-------|:------:|:-----:|:-----------:|
-| **U-Net** | **0.8982 ± 0.0029** | **0.8154** | **9.84** |
-| U-Net++ | 0.8862 ± 0.0082 | 0.7960 | 10.33 |
-| Swin UNETR | 0.8610 ± 0.0017 | 0.7562 | 12.80 |
-| UNETR | 0.8457 ± 0.0062 | 0.7329 | 14.79 |
+| **U-Net** | **0.8982 ± 0.0029** | **0.8152** | **9.84** |
+| U-Net++ | 0.8862 ± 0.0082 | 0.7957 | 10.33 |
+| Swin UNETR | 0.8610 ± 0.0017 | 0.7558 | 12.80 |
+| UNETR | 0.8457 ± 0.0062 | 0.7327 | 14.79 |
 
 **Complete results and per-fold breakdowns available in `tables/` directory.**
 
@@ -583,11 +629,11 @@ Results reported as mean ± standard deviation across 5 folds:
 If you use this dataset, code, or pre-trained models in your research, please cite our paper:
 
 ```bibtex
-@article{bashiri2025ms3seg,
-  title={MS3SEG: A Multiple Sclerosis MRI Dataset with Tri-Mask Annotations for Lesion Segmentation},
+@article{bashiri2026ms3seg,
+  title={A Multiple Sclerosis MRI Dataset with Tri-Mask Annotations for Lesion Segmentation},
   author={Bashiri Bawil, Mahdi and Shamsi, Mousa and Ghalehasadi, Aydin and Jafargholkhanloo, Ali Fahmi and Shakeri Bavil, Abolhassan},
   journal={Scientific Data},
-  year={2025},
+  year={2026},
   volume={XX},
   pages={XXX},
   doi={10.XXXX/XXXXX},
@@ -745,7 +791,7 @@ We acknowledge the use of **Claude Sonnet 4** (Anthropic, accessed October 2024-
 
 ## 🔄 Updates & Changelog
 
-### Version 1.0.0 (February 2025) - Initial Release
+### Version 1.0.0 (February 2026) - Initial Release
 - ✅ Complete dataset (100 patients) released on Figshare
 - ✅ Baseline implementations (U-Net, U-Net++, UNETR, Swin UNETR)
 - ✅ Pre-trained model weights on Hugging Face
@@ -759,7 +805,7 @@ We acknowledge the use of **Claude Sonnet 4** (Anthropic, accessed October 2024-
 - 🔄 Longitudinal data collection (future cohort)
 - 🔄 3D/isotropic acquisition protocol (in progress)
 
-**Last Updated:** February 12, 2025
+**Last Updated:** February 13, 2026
 
 ---
 
@@ -784,4 +830,3 @@ If you find this work useful, please consider giving it a ⭐ on GitHub!
 Made with ❤️ by the MS3SEG Team
 
 </div>
-
