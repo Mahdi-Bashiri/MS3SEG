@@ -1,0 +1,98 @@
+{
+  "data": {
+    "data_dir": "path/to/MS3SEG/data",
+    "target_size": [256, 256],
+    "num_classes": {
+      "multi_class": 4,
+      "three_class": 3,
+      "binary_abnormal_wmh": 2,
+      "binary_ventricles": 2
+    }
+  },
+  "training": {
+    "epochs": 30,
+    "batch_size": 4,
+    "learning_rate": 0.0001,
+    "optimizer": "adam",
+    "loss_function": "unified_focal_loss",
+    "early_stopping_patience": 10,
+    "reduce_lr_patience": 5,
+    "reduce_lr_factor": 0.5,
+    "min_lr": 1e-7
+  },
+  "cross_validation": {
+    "n_folds": 5,
+    "test_split": 0.2,
+    "random_state": 42,
+    "splits_file": "splits/5fold_splits.json"
+  },
+  "models": {
+    "to_compare": [
+      "U-Net",
+      "UNet++",
+      "UNETR",
+      "SwinUNETR"
+    ],
+    "default_params": {
+      "U-Net": {
+        "filters": 64,
+        "batch_norm": true,
+        "dropout_rate": 0.0
+      },
+      "UNet++": {
+        "filters": 32,
+        "batch_norm": true,
+        "dropout_rate": 0.0,
+        "deep_supervision": false
+      },
+      "UNETR": {
+        "patch_size": 16,
+        "hidden_size": 768,
+        "num_transformer_layers": 12,
+        "num_heads": 12,
+        "mlp_dim": 3072,
+        "dropout_rate": 0.1
+      },
+      "SwinUNETR": {
+        "embed_dim": 96,
+        "depths": [2, 2, 6, 2],
+        "num_heads": [3, 6, 12, 24],
+        "window_size": 7,
+        "mlp_ratio": 4.0,
+        "dropout_rate": 0.1
+      }
+    }
+  },
+  "scenarios": {
+    "multi_class": {
+      "num_classes": 4,
+      "class_names": ["Background", "Ventricles", "Normal WMH", "Abnormal WMH"],
+      "description": "Four-class segmentation"
+    },
+    "three_class": {
+      "num_classes": 3,
+      "class_names": ["Background", "Ventricles", "Abnormal WMH"],
+      "description": "Three-class segmentation",
+      "class_mapping": {"0": 0, "1": 1, "2": 0, "3": 2}
+    },
+    "binary_abnormal_wmh": {
+      "num_classes": 2,
+      "class_names": ["Background", "Abnormal WMH"],
+      "description": "Binary segmentation for Abnormal WMH",
+      "target_class": 3
+    },
+    "binary_ventricles": {
+      "num_classes": 2,
+      "class_names": ["Background", "Ventricles"],
+      "description": "Binary segmentation for Ventricles",
+      "target_class": 1
+    }
+  },
+  "output": {
+    "results_dir": "results",
+    "save_models": true,
+    "save_predictions": true,
+    "save_visualizations": true,
+    "log_level": "INFO"
+  }
+}
