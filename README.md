@@ -1,12 +1,11 @@
-[Uploading README.md…]()
 # MS3SEG: A Multiple Sclerosis MRI Dataset with Tri-Mask Annotations for Lesion Segmentation
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Dataset License: CC BY 4.0](https://img.shields.io/badge/Dataset%20License-CC%20BY%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/)
 [![Paper](https://img.shields.io/badge/Paper-Scientific%20Data-blue.svg)](https://doi.org/10.6084/m9.figshare.30393475)
 [![Dataset](https://img.shields.io/badge/Dataset-Figshare-blue.svg)](https://doi.org/10.6084/m9.figshare.30393475)
-[![Models](https://img.shields.io/badge/🤗%20Models-Hugging%20Face-yellow.svg)](https://huggingface.co/YOUR_USERNAME/MS3SEG-models)
-[![Python](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
+[![Models](https://img.shields.io/badge/🤗%20Models-Hugging%20Face-yellow.svg)](https://huggingface.co/Bawil/MS3SEG/tree/main)
+[![Python](https://img.shields.io/badge/python-3.9+-blue.svg)](https://www.python.org/downloads/)
 [![TensorFlow](https://img.shields.io/badge/TensorFlow-2.10+-orange.svg)](https://www.tensorflow.org/)
 
 Official repository for the MS3SEG dataset presented in our *Scientific Data* paper.
