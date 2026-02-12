@@ -6,7 +6,7 @@
 [![Dataset](https://img.shields.io/badge/Dataset-Figshare-blue.svg)](https://doi.org/10.6084/m9.figshare.30393475)
 [![Models](https://img.shields.io/badge/🤗%20Models-Hugging%20Face-yellow.svg)](https://huggingface.co/Bawil/MS3SEG/tree/main)
 [![Python](https://img.shields.io/badge/python-3.9+-blue.svg)](https://www.python.org/downloads/)
-[![TensorFlow](https://img.shields.io/badge/TensorFlow-2.10+-orange.svg)](https://www.tensorflow.org/)
+[![TensorFlow](https://img.shields.io/badge/TensorFlow-2.11+-orange.svg)](https://www.tensorflow.org/)
 
 Official repository for the MS3SEG dataset presented in our *Scientific Data* paper.
 
@@ -784,3 +784,4 @@ If you find this work useful, please consider giving it a ⭐ on GitHub!
 Made with ❤️ by the MS3SEG Team
 
 </div>
+
