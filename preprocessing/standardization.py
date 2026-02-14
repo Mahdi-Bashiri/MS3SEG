@@ -3,7 +3,9 @@
 Preprocess Registered Files - Final Production Version
 ====================================================
 
-This script 
+This script standardizes the input nifti imaging file spatially to reach a 1*1*N stack of data arrays.
+It uses pixel spacing for rescaling to reach 1*1 resolution.
+Then, it employs zero-padding and/or cropping to fixate the dimension on 256*256. 
 
 System Requirements:
 - Python 3.9+
