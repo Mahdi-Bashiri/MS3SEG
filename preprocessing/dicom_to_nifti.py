@@ -3,7 +3,8 @@
 MRI NIFTI File Creator from DICOMs - Final Production Version
 ====================================================
 
-This script ...
+This script converts the dicom files of a patient into a nifti file.
+Since many dicom header would be lost through this conversion, this script provides header information as in json files.
 
 System Requirements:
 - Python 3.9+
@@ -578,4 +579,5 @@ if __name__ == "__main__":
     )
 
     # Start conversion
+
     converter.convert_all()
