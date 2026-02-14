@@ -3,7 +3,7 @@
 MRI Data Anonymizer - Final Production Version
 ====================================================
 
-This script ...
+This script anonymize the dicom files by removing information regarding identity or relating somehow to his/her identity.
 
 System Requirements:
 - Python 3.9+
@@ -251,4 +251,5 @@ if __name__ == "__main__":
     # )
 
     # Start the anonymization process
+
     anonymizer.process_directory(patient_id_prefix="MS_ANON")
