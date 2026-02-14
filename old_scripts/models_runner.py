@@ -3,6 +3,8 @@ Enhanced Multi-Class and Binary Brain Segmentation with K-Fold Cross-Validation
 Journal Paper Implementation with K-Fold Strategy
 Scenarios: Multi-class (4 classes) and Binary (Abnormal WMH, Ventricles)
 K-Fold Cross-Validation (k=5, 80/20 split)
+
+Author: Mahdi Bashiri Bawil
 """
 
 ###################### Libraries ######################
