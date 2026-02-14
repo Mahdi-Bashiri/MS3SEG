@@ -16,7 +16,7 @@ Features:
 - Multi-threaded processing for large datasets
 - Preserves original non-formatted file nature (no extensions)
 
-Author: AI Assistant
+Author: Mahdi Bashiri Bawil
 Date: September 2025
 Version: 1.1
 """
@@ -626,4 +626,5 @@ def main():
 # ============================================================================
 
 if __name__ == "__main__":
+
     main()
